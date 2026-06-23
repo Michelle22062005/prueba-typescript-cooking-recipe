@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
 
     <!-- Header -->
     <div class="header">
-      <div class="logo">GLAM<span>·</span>SHOP</div>
+      <div class="logo">COOKING<span>·</span>RECIPE</div>
       <div class="header-sub">Tu tienda de maquillaje favorita</div>
     </div>
 

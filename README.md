@@ -1,36 +1,166 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Cooking Recipe
 
-## Getting Started
+Cooking Recipe is a web application built with Next.js. It allows users to browse recipes, view recipe details, create an account, log in, and save favorite recipes.
 
-First, run the development server:
+## Repository
+
+[Michelle22062005/prueba-typescript-cooking-recipe](https://github.com/Michelle22062005/prueba-typescript-cooking-recipe)
+
+## Features
+
+- Browse available recipes.
+- View detailed information for each recipe.
+- User registration and login.
+- Authentication with credentials and OAuth providers using NextAuth.
+- Favorite recipe management by user.
+- Welcome email sent after account creation.
+- Data persistence with MongoDB and Mongoose.
+
+## Technologies
+
+- Next.js 16
+- React 19
+- TypeScript
+- MongoDB
+- Mongoose
+- NextAuth
+- bcryptjs
+- Nodemailer
+- HeroUI
+- Tailwind CSS
+- SweetAlert2
+
+## Requirements
+
+Before running the project, make sure you have:
+
+- Node.js
+- npm
+- An available MongoDB database
+
+## Installation
+
+Clone the repository and install the dependencies:
+
+```bash
+npm install
+```
+
+## Environment Variables
+
+Create a `.env.local` file in the project root and configure the required variables:
+
+```env
+DATABASE=your_mongodb_connection_string
+NEXTAUTH_SECRET=your_secret_key
+NEXTAUTH_URL=http://localhost:3000
+
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+GITHUB_CLIENT_ID=your_github_client_id
+GITHUB_CLIENT_SECRET=your_github_client_secret
+
+MAIL_USER=your_gmail_address
+MAIL_PASS=your_password_or_app_password
+```
+
+`DATABASE` is required to connect the application to MongoDB. Google, GitHub, and email variables are required only if you want to use those services.
+
+## Running the Project
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open the application at:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```text
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Available Scripts
 
-## Learn More
+```bash
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Runs the project in development mode.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm run build
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Builds the production version.
 
-## Deploy on Vercel
+```bash
+npm run start
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Runs the production version after building.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+npm run lint
+```
+
+Runs ESLint to check the code.
+
+## Main Structure
+
+```text
+src/
+  app/
+    api/              Recipe, user, favorite, auth, and email endpoints
+    favorites/        Favorites page
+    login/            Login page
+    register/         Register page
+    recipes/          Recipe detail page
+  components/         Reusable components
+  context/            Authentication and favorites context
+  database/models/    Mongoose models
+  lib/                Database connection
+  services/           Functions to consume the internal API
+  types/              TypeScript types
+```
+
+## Application Routes
+
+- `/`: displays the main recipe list.
+- `/recipes/[id]`: displays the details of a recipe.
+- `/login`: allows users to log in.
+- `/register`: allows users to create an account.
+- `/favorites`: displays the authenticated user's favorite recipes.
+
+## Main Endpoints
+
+- `GET /api/recipes`: gets all recipes.
+- `GET /api/recipes/[id]`: gets a recipe by id.
+- `POST /api/register`: registers a new user.
+- `POST /api/login`: validates user credentials.
+- `GET /api/favorites?userId=...`: gets a user's favorite recipes.
+- `POST /api/favorites`: saves a recipe as favorite.
+- `DELETE /api/favorites?userId=...&recipeId=...`: removes a recipe from favorites.
+- `POST /api/sendemail`: sends a welcome email.
+
+## Data Models
+
+### Recipe
+
+A recipe includes name, image, preparation time, difficulty, description, ingredients, preparation steps, portions, and creation date.
+
+### User
+
+A user includes name, email, encrypted password, and creation date.
+
+### Favorite
+
+A favorite connects a user with a recipe. The `userId` and `recipeId` combination is unique to prevent duplicates.
+
+## Notes
+
+- Passwords are encrypted with `bcryptjs`.
+- Authentication uses JWT through NextAuth.
+- To send emails with Gmail, using an App Password is recommended.
+- The favorites page requires an active session.

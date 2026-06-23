@@ -10,12 +10,12 @@ export async function GET(req: Request){
     const userId = searchParams.get("userId")
 
      if (!userId) {
-      return Response.json({ error: "userId es requerido" }, { status: 400 });
+      return Response.json({ error: "userId es requerido", data:[] }, { status: 400 });
     }
 
     const data = await  Favorite.find({ userId}).populate("recipeId");
     return Response.json({
-        data:data,
+        data:data || [],
         code:200,
         message:"El servicio contesto"
     })
@@ -23,7 +23,7 @@ export async function GET(req: Request){
     }catch (error) {
     console.error(error);
     return Response.json(
-      { error: "Error interno del servidor" },
+      { error: "Error interno del servidor", data:[] },
       { status: 500 }
     );
   }

@@ -1,4 +1,3 @@
-// ProductList.tsx — el padre hace el fetch y renderiza la lista
 import { useEffect, useState } from "react";
 import { RecipeCard } from "./RecipeCard";
 import { getRecipe } from "../services/recipeService";
